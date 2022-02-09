@@ -61,6 +61,7 @@ async function compute() {
 
   //console.log(res);
 
+  //3dm
   doc = new rhino.File3dm();
 
   // hide spinner
@@ -72,6 +73,8 @@ async function compute() {
       for (const d of value) {
         const data = JSON.parse(d.data);
         const rhinoObject = rhino.CommonObject.decode(data);
+        
+        //adding geometry into 3dm
         doc.objects().add(rhinoObject, null);
       }
     }
@@ -87,7 +90,7 @@ async function compute() {
     const rhinoObject = objects.get( i );
 
 
-     // asign geometry userstrings to object attributes
+     // asign geometry userstrings to rhino object attributes
     if ( rhinoObject.geometry().userStringCount > 0 ) {
       const g_userStrings = rhinoObject.geometry().getUserStrings()
       rhinoObject.attributes().setUserString(g_userStrings[0][0], g_userStrings[0][1])
